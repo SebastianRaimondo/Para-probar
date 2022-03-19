@@ -8,7 +8,11 @@ class PlaceController {
     this.router = express.Router();
     this.router.post("/", upload, (req, res) => this.createPlace(req, res));
     this.router.post("/img", upload, (req, res) => {
-      return res.status(200).json(req.file.filename);
+
+      let arrayFiles = Array.from(req.files).map(e => e.filename)
+
+      //console.log(arrayFiles)
+      return res.status(200).json(arrayFiles);
     }),
       this.router.put("/:id", upload, (req, res) => this.editPlace(req, res)),
       this.router.get("/", (req, res) => this.getPlace(req, res));

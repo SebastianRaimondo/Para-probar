@@ -61,7 +61,7 @@ function FormNewPlace() {
   const [categories, setCategories] = useState([]);
   const [feature, setFeature] = useState([]);
   const [features, setFeatures] = useState([]);
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState();
 
   const onSubmit = async (data) => {
     let fileName = await sendHandler();
@@ -94,16 +94,29 @@ function FormNewPlace() {
   };
 
   const selectedHandler = (e) => {
-    setFile(e.target.files[0]);
+    let arrayFiles = Array.from(e.target.files)
+    console.log(arrayFiles)
+    setFile(arrayFiles);
   };
 
   const sendHandler = async () => {
-    const formdata = new FormData();
-    formdata.append("image", file);
+    let formdata = new FormData();
+
+   // formdata.append( "image", file[0])
+   file.forEach(el => formdata.append( "images", el))
+
+
+
+    //formdata.append("image", file[0]);
+    //console.log(file)
+
+
+     console.log(formdata.getAll("images"))
     const response = await fetch("http://localhost:8080/places/img", {
       method: "POST",
       enctype: "multipart/form-data",
       body: formdata,
+      
     })
       .then((res) => res.json())
       .catch((e) => console.log(e));
@@ -225,6 +238,7 @@ function FormNewPlace() {
                     onChange={selectedHandler}
                     type="file"
                     className="form-control"
+                    multiple
                   />
                 </Stack>
 

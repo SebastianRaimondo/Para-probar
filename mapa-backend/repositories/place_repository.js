@@ -2,7 +2,7 @@ const Place = require("../models/places_model");
 
 class PlaceRepository {
   async createPlace(data) {
-    console.log(data);
+    
 
     const {
       name,
@@ -15,6 +15,9 @@ class PlaceRepository {
       image,
     } = data;
 
+    console.log(data.name);
+    console.log(data.image);
+
     const place = await Place.create({
       name,
       address,
@@ -23,10 +26,10 @@ class PlaceRepository {
       category,
       features,
       description,
-      image,
+      image
     });
 
-    console.log(place);
+    //console.log(place);
 
     return await place.save();
   }

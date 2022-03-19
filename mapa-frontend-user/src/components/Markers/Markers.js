@@ -20,6 +20,7 @@ import { divIcon } from "leaflet";
 import { useState, useEffect } from "react";
 import petitions from "../Petitions";
 import "./Markers.scss";
+import ImagePopUp from "../ImagePopUp";
 
 const Markers = () => {
   const places = JSON.parse(sessionStorage.getItem("places"));
@@ -94,16 +95,17 @@ function InfoPlace(place) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+
+
         <Box sx={stylebox}>
           <Button onClick={handleClose}>
             <CloseIcon color="primary" />
           </Button>
           <Stack>
-            <img
-              src={`http://localhost:8080/images/${place.image}`}
-              width="100%"
-              height="100%"
-            />
+          {console.log(place.image[0])}
+
+          {place.image.map(e =>
+            <ImagePopUp  imagen = {"http://localhost:8080/images/" + e}/>)}
           </Stack>
           <Stack className="modal-title">
             <b>Nombre:</b>

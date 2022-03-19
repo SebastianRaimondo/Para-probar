@@ -271,7 +271,7 @@ async function LoginUser(data) {
 
 async function CreatePlace(data) {
   try {
-    console.log(data);
+    //console.log(data);
     const response = await axios({
       url: `${baseUrl}/places`,
       method: "POST",
